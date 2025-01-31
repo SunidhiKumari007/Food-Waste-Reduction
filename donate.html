@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Donation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(sakshi.jpg);
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 20px -20px 20px rgba(0, 0, 0, 0.5);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Donate Food</h1>
+    <form action="http://localhost/submit-donation.php" method="post">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Your Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="foodType">Type of Food:</label>
+        <input type="text" id="foodType" name="foodType" required>
+
+        <label for="quantity">Quantity (e.g., number of servings, weight):</label>
+        <input type="text" id="quantity" name="quantity" required>
+
+        <label for="pickup">Pickup or Drop-off:</label>
+        <select id="pickup" name="pickup" required>
+            <option value="pickup">Pickup</option>
+            <option value="dropoff">Drop-off</option>
+        </select>
+
+        <!-- <label for="address">Pickup/Drop-off Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea> -->
+
+
+
+        <!-- Include Leaflet CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Input field and button for address -->
+<label for="address">Pickup/Drop-off Address:</label>
+<input type="text" id="address" placeholder="Enter your address" style="width: 60%;" />
+<button onclick="getLocation()">Find Location</button>
+
+<!-- Map Container -->
+<div id="map" style="height: 400px; width: 100%; margin-top: 10px;"></div>
+
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([28.6139, 77.2090], 13); // Default to Delhi
+
+    // Load OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker; // To store the marker
+
+    function getLocation() {
+        var address = document.getElementById("address").value;
+        if (!address) {
+            alert("Please enter an address!");
+            return;
+        }
+
+        // Use Nominatim API to get coordinates
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    alert("Location not found!");
+                    return;
+                }
+
+                var lat = data[0].lat;
+                var lon = data[0].lon;
+
+                // Move map to new location
+                map.setView([lat, lon], 15);
+
+                // Remove old marker if exists
+                if (marker) map.removeLayer(marker);
+
+                // Add new marker
+                marker = L.marker([lat, lon]).addTo(map)
+                    .bindPopup("Your Location")
+                    .openPopup();
+            })
+            .catch(error => console.error("Error fetching location:", error));
+    }
+</script>
+
+
+
+
+
+        <label for="date">Preferred Date for Pickup/Drop-off:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="time">Preferred Time for Pickup/Drop-off:</label>
+        <input type="time" id="time" name="time" required>
+
+        <input type="submit" value="Donate Food">
+    </form>
+</body>
+</html>

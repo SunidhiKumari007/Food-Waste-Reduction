@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Saver Sign-Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #D6EFFF, #90CAF9);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Floating Food Illustrations */
+        .food-icon {
+            position: absolute;
+            width: 50px;
+            opacity: 0.6;
+            animation: float 6s infinite ease-in-out alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Randomized Positions */
+        .icon1 { top: 5%; left: 10%; animation-duration: 7s; }
+        .icon2 { top: 15%; right: 15%; animation-duration: 6s; }
+        .icon3 { bottom: 20%; left: 5%; animation-duration: 9s; }
+        .icon4 { bottom: 5%; right: 10%; animation-duration: 8s; }
+        .icon5 { top: 50%; left: 30%; animation-duration: 10s; }
+        .icon6 { bottom: 50%; right: 20%; animation-duration: 9s; }
+        .icon7 { top: 30%; right: 5%; animation-duration: 7.5s; }
+        .icon8 { bottom: 10%; left: 40%; animation-duration: 6.5s; }
+        .icon9 { top: 75%; right: 30%; animation-duration: 8s; }
+        .icon10 { bottom: 70%; left: 20%; animation-duration: 7.2s; }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #1565C0;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #1565C0;
+            box-shadow: 0 0 5px rgba(21, 101, 192, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1565C0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0D47A1;
+        }
+
+        a {
+            text-decoration: none;
+            color: #1565C0;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Food Icons -->
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046751.png" class="food-icon icon1" alt="Bread">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046786.png" class="food-icon icon2" alt="Fruits">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046745.png" class="food-icon icon3" alt="Plate">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046791.png" class="food-icon icon4" alt="Vegetables">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046780.png" class="food-icon icon5" alt="Carrot">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046753.png" class="food-icon icon6" alt="Pizza">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046758.png" class="food-icon icon7" alt="Fish">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046762.png" class="food-icon icon8" alt="Meat">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046783.png" class="food-icon icon9" alt="Eggs">
+    <img src="https://cdn-icons-png.flaticon.com/128/1046/1046789.png" class="food-icon icon10" alt="Salad">
+
+    <div class="container">
+        <h2>Food Saver Sign-Up</h2>
+        <form id="saverSignUpForm">
+            <input type="text" id="saverName" placeholder="Full Name" required>
+            <input type="email" id="saverEmail" placeholder="Email" required>
+            <input type="password" id="saverPassword" placeholder="Password" required minlength="6">
+            <input type="password" id="saverConfirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="food_saver_login.html">Login</a></p>
+    </div>
+
+    <script>
+        document.getElementById("saverSignUpForm").addEventListener("submit", function(e) {
+            const password = document.getElementById("saverPassword").value;
+            const confirmPassword = document.getElementById("saverConfirmPassword").value;
+
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert("Passwords do not match.");
+            }
+        });
+    </script>
+
+</body>
+</html>
